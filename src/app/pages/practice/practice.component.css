@@ -1,92 +1,103 @@
-/* General Styling */
+/* 🌙 Dark Theme - General Styling */
+body {
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  margin: 0;
+  padding: 20px;
+}
 
-  
-  /* Buttons */
-  button {
-    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-    color: #e0e0e0;
-    border: none;
-    padding: 12px 20px;
-    margin: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-    font-weight: bold;
-  }
-  
-  button:hover {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-    transform: scale(1.05);
-  }
-  
-  /* Section Styling */
-  section {
-    background: #2b2b2b;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.05);
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    color: #cccccc;
-    text-transform: uppercase;
-    font-size: 24px;
-    border-bottom: 2px solid #555;
-    padding-bottom: 5px;
-  }
-  
-  h2 {
-    color: #aaaaaa;
-    font-size: 20px;
-  }
-  
-  p {
-    font-size: 16px;
-    color: #bbb;
-  }
-  
-  /* Animation Section */
-  .animation-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .animation {
-    border-radius: 15px;
-    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
-    transition: 0.3s ease-in-out;
-  }
-  
-  .animation:hover {
-    transform: scale(1.02);
-  }
-  
-  /* Input Field */
-  input {
-    background: #333;
-    border: 2px solid #444;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    outline: none;
-    transition: 0.3s;
-  }
-  
-  input:focus {
-    border-color: #777;
-  }
-  
-  /* Child Component */
-  app-child {
-    display: block;
-    background: #2b2b2b;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.05);
-    margin-top: 10px;
-  }
-  
+/* Headings */
+h1 {
+  color: #00aaff;
+  text-align: center;
+}
+
+/* 🔵 Buttons */
+button {
+  background: #00aaff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #0088cc;
+}
+
+/* 📦 RxJS Operators Section */
+section {
+  background: #1e1e1e;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+}
+
+section div {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #252525;
+}
+
+/* 🎚 Route-Based Filteration */
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  width: 200px;
+  font-size: 16px;
+  background: #252525;
+  color: #e0e0e0;
+}
+
+select:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+/* 🎨 Animation Div */
+.animation-div {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.animation {
+  margin: 20px auto;
+  border-radius: 10px;
+  transition: background 0.5s ease;
+}
+
+/* 📩 Input Fields */
+input[type="text"] {
+  width: 300px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #252525;
+  color: #e0e0e0;
+}
+
+input:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+/* 🔘 Route Selection */
+div select {
+  display: block;
+  margin: 10px auto;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+}

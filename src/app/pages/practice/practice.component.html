@@ -1,26 +1,46 @@
 <button (click)="logout()">Logout</button>
 
 <h1 appColorChange>This is done using Custom Directive</h1>
-<section>
+<section *ngIf="results">
   <h1>RxJS Operators</h1>
 
   <div>
-    <h2>filter</h2>
-    <p>{{ filterNumbers }}</p>
+    <h2>filter (filter out valid searches)</h2>
+    <p>{{ results.filtered }}</p>
   </div>
   <div>
-    <h2>map</h2>
-    <p>{{ mapNumbers }}</p>
+    <h2>map (bring out menus of all these valid searches)</h2>
+    <p>{{ results.mapped }}</p>
   </div>
 
   <div>
-    <h2>switchMap</h2>
-    <p>{{ switchMapNumberLetters }}</p>
+    <h2>switchMap (bring out menus of all these valid searches)</h2>
+    <p>{{ results.switchMap }}</p>
+  </div>
+
+  <div>
+    <h2>mergeMap (bring out menus of all these valid searches)</h2>
+    <p>{{ results.mergeMap }}</p>
+  </div>
+
+  <div>
+    <h2>concatMap (bring out menus of all these valid searches)</h2>
+    <p>{{ results.concatMap }}</p>
   </div>
 
   <div>
     <h2>take</h2>
-    <p>{{ takeNumber }}</p>
+    <p>{{ results.take }}</p>
+  </div>
+
+  <div>
+    <h2>forkJoin</h2>
+    <p>{{ results.forkJoin | json }}</p>
+  </div>
+
+  <div>
+    <h2>combineLatest</h2>
+    <p>{{ results.combineLatest }}</p>
   </div>
 </section>
 
@@ -42,4 +62,46 @@
     [name]="parentInput"
     (nameToParent)="updateChildValue($event)"
   ></app-child>
+</div>
+
+<div>
+  <h1>Route Based filteration</h1>
+
+  <select id="city" (change)="setData('city', $event)">
+    <option selected hidden></option>
+    <option
+      *ngFor="let property of mainService.properties"
+      [value]="getCity(property.city)"
+    >
+      {{ property.city }}
+    </option>
+  </select>
+
+  <select
+    id="type"
+    *ngIf="filterationData.city"
+    (change)="setData('type', $event)"
+  >
+    <option selected hidden></option>
+    <option
+      *ngFor="let property of mainService.properties"
+      [value]="property.type"
+    >
+      {{ property.type }}
+    </option>
+  </select>
+  <select
+    id="type"
+    *ngIf="filterationData.city && filterationData.type"
+    (change)="setData('price', $event)"
+  >
+    <option selected hidden></option>
+    <option
+      *ngFor="let property of mainService.properties"
+      [value]="property.price"
+    >
+      {{ property.price }}
+    </option>
+  </select>
+  <button (click)="goToFilter()">Filter</button>
 </div>

@@ -1,0 +1,33 @@
+/* 📦 Property List Container */
+div {
+    background: #1e1e1e;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    max-width: 400px;
+    text-align: center;
+    transition: 0.3s ease;
+  }
+  
+  /* 🏙 Property Details */
+  div p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #e0e0e0;
+  }
+  
+  div:hover {
+    background: #252525;
+    transform: scale(1.02);
+  }
+  
+  /* ⚠ No Data Message */
+  p[ng-reflect-ng-if="false"] {
+    text-align: center;
+    font-size: 18px;
+    color: #ff4d4d;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  

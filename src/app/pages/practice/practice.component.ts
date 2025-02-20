@@ -6,15 +6,18 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { MainService } from '../../utils/services/main.service';
 import { PracticeRoutingModule } from './practice.routing.module';
 import { ColorChangeDirective } from '../../utils/directives/color-change.directive';
 import {
   Subscription,
   combineLatest,
+  concatMap,
   filter,
+  forkJoin,
   map,
+  mergeMap,
   of,
   switchMap,
   take,
@@ -51,53 +54,93 @@ import { ChildComponent } from '../../components/child/child.component';
   ],
 })
 export class PracticeComponent implements OnInit, OnDestroy {
-  filterNumbers: number[] = [];
-  mapNumbers: number[] = [];
-  switchMapNumberLetters: string[] = [];
   subscriptions: Subscription[] = [];
-  takeNumber!: number;
+  results: any = {
+    filtered: [],
+    mapped: [],
+    switchMap: [],
+    mergeMap: [],
+    concatMap: [],
+  };
+
   color: string = 'red';
   childValueUsingOutput!: string;
 
   parentInput!: string;
+  filterationData: any = {
+    city: '',
+    type: '',
+    price: 0,
+  };
 
-  constructor(private router: Router, private mainService: MainService) {}
+  constructor(private router: Router, public mainService: MainService) {}
   logout() {
     this.mainService.isLoggedIn === false;
     this.router.navigate(['/']);
   }
 
   ngOnInit(): void {
-    const filterSubscription = this.mainService.numbers
-      .pipe(filter((val: number) => val > 3))
-      .subscribe((val: number) => this.filterNumbers.push(val));
-
-    const mapSubscription = this.mainService.numbers
-      .pipe(map((val: number) => val * 2))
-      .subscribe((val: number) => this.mapNumbers.push(val));
-
-    const switchSubscrcription = this.mainService.alphabets
-      .pipe(
-        switchMap((alphabet) => {
-          return this.mainService.numbers.pipe(
-            map((number) => `${alphabet}${number}`)
-          );
-        })
-      )
-      .subscribe((val) => this.switchMapNumberLetters.push(val));
-
-    const takeSubscription = this.mainService.numbers
-      .pipe(take(1))
-      .subscribe((val: number) => (this.takeNumber = val));
-
-    this.subscriptions.push(
-      filterSubscription,
-      mapSubscription,
-      switchSubscrcription,
-      takeSubscription
+    const filteredSearches$ = this.mainService.userSearch$.pipe(
+      filter((val: string) => Boolean(val.trim()))
     );
+    const mappedSearches$ = filteredSearches$.pipe(
+      map((val: string) => this.mainService.restaurants[val])
+    );
+    const switchMapResults$ = filteredSearches$.pipe(
+      switchMap((val: string) => of(this.mainService.restaurants[val]))
+    );
+    const mergeMapResults$ = filteredSearches$.pipe(
+      mergeMap((val: string) => of(this.mainService.restaurants[val]))
+    );
+    const concatMapResults$ = filteredSearches$.pipe(
+      concatMap((val: string) => of(this.mainService.restaurants[val]))
+    );
+    const limitedtResults$ = filteredSearches$.pipe(take(1));
+
+    const forkJoinResults$ = forkJoin({
+      profile: this.mainService.userProfile$,
+      favorite: this.mainService.favoriteRestaurants$,
+    });
+    const combinedLatestResults$ = combineLatest([
+      filteredSearches$,
+      this.mainService.favoriteRestaurants$,
+    ]);
+    this.subscriptions = [
+      filteredSearches$.subscribe((val) => this.results.filtered.push(val)),
+      mappedSearches$.subscribe((val) => this.results.mapped.push(val)),
+      switchMapResults$.subscribe((val) => this.results.switchMap.push(val)),
+      mergeMapResults$.subscribe((val) => this.results.mergeMap.push(val)),
+      concatMapResults$.subscribe((val) => this.results.concatMap.push(val)),
+      limitedtResults$.subscribe((val) => (this.results.take = val)),
+      forkJoinResults$.subscribe((val) => (this.results.forkJoin = val)),
+      combinedLatestResults$.subscribe(
+        (val) => (this.results.combineLatest = val)
+      ),
+    ];
+  }
+  getOptions = (type: string) => [
+    ...new Set(
+      this.mainService.properties.map((property: any) => property[type])
+    ),
+  ];
+  getCity = (city: string) => city.replace(/ /, '-');
+  goToFilter() {
+    const pathArr = ['filter']; // Start with the base path
+
+    if (this.filterationData.city)
+      pathArr.push(this.filterationData.city.replace(/ /g, '-')); // Replace all spaces with '-'
+
+    if (this.filterationData.type) pathArr.push(this.filterationData.type);
+
+    if (this.filterationData.price) pathArr.push(this.filterationData.price);
+
+    this.router.navigate(pathArr); // Pass an array directly
   }
 
+  setData(dataType: string, event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.filterationData[dataType] = input.value;
+  }
   updateChildValue(val: string) {
     this.childValueUsingOutput = val;
   }

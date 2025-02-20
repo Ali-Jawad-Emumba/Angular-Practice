@@ -1,0 +1,6 @@
+<p *ngIf="properties.length === 0">No Data</p>
+<div *ngFor="let property of properties">
+  <p>{{ property.city }}</p>
+  <p>{{ property.type }}</p>
+  <p>{{ property.price }}</p>
+</div>
