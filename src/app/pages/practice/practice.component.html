@@ -1,0 +1,45 @@
+<button (click)="logout()">Logout</button>
+
+<h1 appColorChange>This is done using Custom Directive</h1>
+<section>
+  <h1>RxJS Operators</h1>
+
+  <div>
+    <h2>filter</h2>
+    <p>{{ filterNumbers }}</p>
+  </div>
+  <div>
+    <h2>map</h2>
+    <p>{{ mapNumbers }}</p>
+  </div>
+
+  <div>
+    <h2>switchMap</h2>
+    <p>{{ switchMapNumberLetters }}</p>
+  </div>
+
+  <div>
+    <h2>take</h2>
+    <p>{{ takeNumber }}</p>
+  </div>
+</section>
+
+<div class="animation-div">
+  <div
+    [@blueAndRed]="color"
+    class="animation"
+    style="width: 500px; height: 500px; background-color: black"
+  ></div>
+  <button (click)="setColor('red')">Red</button>
+  <button (click)="setColor('blue')">Blue</button>
+</div>
+<div>
+  <h1>Component Communication</h1>
+  <input type="text" (input)="updateParentValue($event)" />
+  <p>Child Value using Output: {{ childValueUsingOutput }}</p>
+
+  <app-child
+    [name]="parentInput"
+    (nameToParent)="updateChildValue($event)"
+  ></app-child>
+</div>

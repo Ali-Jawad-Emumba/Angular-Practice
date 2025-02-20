@@ -1,0 +1,42 @@
+/* Child Component Container */
+.child-container {
+    background: #2b2b2b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 3px 8px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    margin: 20px auto;
+  }
+  
+  /* Title */
+  h1 {
+    color: #cccccc;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Parent Value Display */
+  p {
+    color: #aaa;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Input Field */
+  input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    background: #333;
+    border: 2px solid #444;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #777;
+  }
+  
