@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChildComponent } from '../../components/child/child.component';
+import { PropertyBagService } from '../../utils/services/property-bag.service';
 
 @Component({
   selector: 'app-practice',
@@ -74,12 +75,19 @@ export class PracticeComponent implements OnInit, OnDestroy {
   };
   options: any = { cities: [], types: [], prices: [] };
 
-  constructor(private router: Router, public mainService: MainService) {}
+  constructor(
+    private router: Router,
+    private mainService: MainService,
+    public propertyBagService: PropertyBagService
+  ) {}
   logout() {
     this.mainService.isLoggedIn === false;
     this.router.navigate(['/']);
   }
-
+  updateUsername(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.propertyBagService.username = input.value;
+  }
   ngOnInit(): void {
     this.options = {
       cities: [

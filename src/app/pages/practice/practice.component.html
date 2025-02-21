@@ -55,6 +55,7 @@
 </div>
 <div>
   <h1>Component Communication</h1>
+  <h2>Via Input Output Decorators</h2>
   <input type="text" (input)="updateParentValue($event)" />
   <p>Child Value using Output: {{ childValueUsingOutput }}</p>
 
@@ -62,6 +63,10 @@
     [name]="parentInput"
     (nameToParent)="updateChildValue($event)"
   ></app-child>
+
+  <h2>Via Property Bag Service</h2>
+  <p>username {{ propertyBagService.username }}</p>
+  <input type="text" (input)="updateUsername($event)" />
 </div>
 
 <div>
