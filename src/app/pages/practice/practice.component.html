@@ -69,11 +69,8 @@
 
   <select id="city" (change)="setData('city', $event)">
     <option selected hidden></option>
-    <option
-      *ngFor="let property of mainService.properties"
-      [value]="getCity(property.city)"
-    >
-      {{ property.city }}
+    <option *ngFor="let option of options.cities" [value]="getCity(option)">
+      {{ option }}
     </option>
   </select>
 
@@ -83,11 +80,8 @@
     (change)="setData('type', $event)"
   >
     <option selected hidden></option>
-    <option
-      *ngFor="let property of mainService.properties"
-      [value]="property.type"
-    >
-      {{ property.type }}
+    <option *ngFor="let option of options.types" [value]="option">
+      {{ option }}
     </option>
   </select>
   <select
@@ -96,11 +90,8 @@
     (change)="setData('price', $event)"
   >
     <option selected hidden></option>
-    <option
-      *ngFor="let property of mainService.properties"
-      [value]="property.price"
-    >
-      {{ property.price }}
+    <option *ngFor="let option of options.prices" [value]="option">
+      {{ option }}
     </option>
   </select>
   <button (click)="goToFilter()">Filter</button>

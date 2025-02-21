@@ -72,6 +72,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     type: '',
     price: 0,
   };
+  options: any = { cities: [], types: [], prices: [] };
 
   constructor(private router: Router, public mainService: MainService) {}
   logout() {
@@ -80,6 +81,23 @@ export class PracticeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.options = {
+      cities: [
+        ...new Set(
+          this.mainService.properties.map((property) => property.city)
+        ),
+      ],
+      types: [
+        ...new Set(
+          this.mainService.properties.map((property) => property.type)
+        ),
+      ],
+      prices: [
+        ...new Set(
+          this.mainService.properties.map((property) => property.price)
+        ),
+      ],
+    };
     const filteredSearches$ = this.mainService.userSearch$.pipe(
       filter((val: string) => Boolean(val.trim()))
     );
