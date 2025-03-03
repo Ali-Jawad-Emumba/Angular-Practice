@@ -150,7 +150,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     ),
   ];
   getCity = (city: string) => city.replace(/ /, '-');
-  goToFilter() {
+  goToFilterUsingParam() {
     const pathArr = ['filter']; // Start with the base path
 
     if (this.filterationData.city)
@@ -161,6 +161,18 @@ export class PracticeComponent implements OnInit, OnDestroy {
     if (this.filterationData.price) pathArr.push(this.filterationData.price);
 
     this.router.navigate(pathArr); // Pass an array directly
+  }
+  goToFilterUsingQueryParam() {
+    const queryParams: any = {};
+
+    if (this.filterationData.city)
+      queryParams.city = this.filterationData.city.replace(/ /g, '-');
+    if (this.filterationData.type) queryParams.type = this.filterationData.type;
+
+    if (this.filterationData.price)
+      queryParams.price = this.filterationData.price;
+
+    this.router.navigate(['filter'], { queryParams });
   }
 
   setData(dataType: string, event: Event) {

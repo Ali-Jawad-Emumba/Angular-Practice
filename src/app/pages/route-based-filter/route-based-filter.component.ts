@@ -16,19 +16,27 @@ export class RouteBasedFilterComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((param) => {
       console.log(param);
-      let result = this.mainService.properties;
-      if (param['city']) {
-        result = result.filter(
-          (property) => property.city.replace(/ /, '-') === param['city']
-        );
-      }
-      if (param['type']) {
-        result = result.filter((property) => property.type === param['type']);
-      }
-      if (param['price']) {
-        result = result.filter((property) => property.price === param['price']);
-      }
-      this.properties = result;
+      if (Object.keys(param).length > 0) this.filterData(param);
     });
+    this.route.queryParams.subscribe((param) => {
+      console.log(param);
+      if (Object.keys(param).length > 0) this.filterData(param);
+    });
+  }
+
+  filterData(param: any) {
+    let result = this.mainService.properties;
+    if (param['city']) {
+      result = result.filter(
+        (property) => property.city.replace(/ /, '-') === param['city']
+      );
+    }
+    if (param['type']) {
+      result = result.filter((property) => property.type === param['type']);
+    }
+    if (param['price']) {
+      result = result.filter((property) => property.price === param['price']);
+    }
+    this.properties = result;
   }
 }
